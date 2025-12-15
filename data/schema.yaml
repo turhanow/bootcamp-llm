@@ -1,0 +1,115 @@
+dataset: JobVacancy
+description: >
+  Структура данных о вакансиях, компаниях и связанных сущностях для анализа и работы LLM.
+  Главная сущность — Vacancies, к которой присоединены вспомогательные таблицы через vacancy_id.
+
+tables:
+  - table: Vacancies
+    primary_key: vacancy_id
+    description: Основная таблица, содержащая полное описание вакансий.
+    columns:
+      published_at: {type: string, description: "Дата публикации вакансии", nullable: true}
+      is_active: {type: boolean, description: "Активна ли вакансия", enum: [false, true], nullable: true}
+      position: {type: string, description: "Название должности"}
+      type: {type: string, description: "Тип размещения", enum: [web_and_tg, only_web]}
+      vacancy_id: {type: integer, description: "Уникальный ID вакансии"}
+      offer_type: {type: string, description: "Тип оффера", enum: [vacancy, one_day_offer, one_day_offer_v2, one_day_offer_v3, external]}
+      analytics_id: {type: string, description: "ID для аналитики"}
+      salary_description: {type: string, description: "Текстовое описание зарплаты", nullable: true}
+      salary_hidden: {type: boolean, description: "Скрыта ли зарплата"}
+      salary_display_from: {type: number, description: "Минимальная зарплата", nullable: true}
+      salary_display_to: {type: number, description: "Максимальная зарплата", nullable: true}
+      salary_currency: {type: string, description: "Валюта зарплаты", enum: [₽, $, €], nullable: true}
+      salary_taxes: {type: string, description: "До/после налогов", enum: [net, gross]}
+      salary_is_total: {type: boolean, description: "Зарплата суммарная (с бонусами)"}
+      salary_by_our_version: {type: boolean, description: "Пересчитана системой"}
+      offer_description: {type: string, description: "Описание предложения"}
+      city: {type: string, description: "Город", nullable: true}
+      country: {type: string, description: "Страна", nullable: true}
+      location_details: {type: string, description: "Детали локации", nullable: true}
+      url: {type: string, description: "Ссылка на вакансию"}
+      description_html: {type: string, description: "HTML описание вакансии", nullable: true}
+      remote_options: {type: string, description: "Опции удалёнки", enum: [anywhere, only_ru], nullable: true}
+      office_options: {type: string, description: "Режим офиса", enum: [sometimes, few_days, full], nullable: true}
+      company_name: {type: string, description: "Название компании"}
+      company_logotype: {type: string, description: "URL логотипа компании", nullable: true}
+      company_url: {type: string, description: "Сайт компании"}
+      company_industry: {type: string, description: "Отрасль компании"}
+      company_post_to_job_aggregators: {type: boolean, description: "Публикуется на агрегаторах"}
+      company_investments: {type: string, description: "Инвестиции компании"}
+      company_size: {type: string, description: "Размер компании", enum: ["", "1 - 10", "11 - 50", "51 - 100", "101 - 200", "201 - 500", "201-500", "501 - 1000", "1001+"], nullable: true}
+      company_short_description: {type: string, description: "Краткое описание компании"}
+      specialization: {type: string, description: "Специализация вакансии"}
+      position_level: {type: string, description: "Уровень позиции", enum: [Middle, Lead, Senior, Middle-to-Senior, C-level, Junior]}
+      team_size: {type: string, description: "Размер команды", enum: ["", "1 - 5", "6 - 10", "11 - 20", "21 - 50", "51 - 100"], nullable: true}
+      stack_description: {type: string, description: "Описание тех. стека"}
+      short_description: {type: string, description: "Краткое описание вакансии"}
+      description: {type: string, description: "Полное описание вакансии"}
+      language: {type: string, description: "Язык вакансии", enum: [ru, eng]}
+      required_years_of_experience: {type: number, description: "Требуемый опыт (лет)", nullable: true}
+      recruiter_first_name: {type: string, description: "Имя рекрутера"}
+      recruiter_last_name: {type: string, description: "Фамилия рекрутера", nullable: true}
+      recruiter_photo: {type: string, description: "Фото рекрутера", nullable: true}
+      recruiter_position: {type: string, description: "Должность рекрутера", nullable: true}
+      og_title: {type: string, description: "OpenGraph заголовок"}
+      og_description: {type: string, description: "OpenGraph описание"}
+      og_image_url: {type: string, description: "OpenGraph изображение", nullable: true}
+      og_image_width: {type: number, description: "Ширина OG изображения", nullable: true}
+      og_image_height: {type: number, description: "Высота OG изображения", nullable: true}
+      og_site_name: {type: string, description: "OpenGraph название сайта", enum: [getmatch.ru]}
+      seniority: {type: string, description: "Старшинство", enum: [middle, lead, senior], nullable: true}
+      short_info: {type: string, description: "Краткая сводка"}
+      english_level_name: {type: string, description: "Уровень английского", enum: [B1 — Intermediate, C1/C2 — Advanced / Fluent, B2 — Upper-Intermediate, A2 — Pre-Intermediate, A1 — Beginner / Elementary], nullable: true}
+      english_level_vacancy_description: {type: string, description: "Описание уровня английского", enum: ["Свободно общаетесь с коллегами о работе, если нет совсем сложных тем", "Говорите, читаете, пишете одинаково свободно на любые темы", "Знаете термины, свободно говорите на рабочие темы. Помощь нужна в редких случаях", "Говорите и пишете на знакомые темы. Техническую литературу читаете со словарем", "Вы понимаете и строите простые фразы"], nullable: true}
+      is_one_day_offer_available: {type: boolean, description: "Доступен однодневный оффер"}
+      is_one_day_offer_v3_available: {type: boolean, description: "Доступен one-day-offer v3"}
+
+  - table: Locations
+    parent: Vacancies
+    foreign_key: vacancy_id
+    description: Географические и типовые локации вакансий.
+    columns:
+      vacancy_id: {type: integer, description: ID вакансии}
+      location: {type: string, description: Тип местоположения, enum: [moscow, remote, regions_ru, saints_p, relocate]}
+
+  - table: Skills
+    parent: Vacancies
+    foreign_key: vacancy_id
+    description: Список навыков, указанных в описании вакансии.
+    columns:
+      vacancy_id: {type: integer, description: ID вакансии}
+      skill: {type: string, description: Название навыка или технологии}
+
+  - table: Breadcrumbs
+    parent: Vacancies
+    foreign_key: vacancy_id
+    description: Категории иерархии вакансий (например, сфера деятельности).
+    columns:
+      vacancy_id: {type: integer, description: ID вакансии}
+      breadcrumb: {type: string, description: Категория или направление деятельности}
+
+  - table: Specializations
+    parent: Vacancies
+    foreign_key: vacancy_id
+    description: Список специализаций, связанных с вакансиями.
+    columns:
+      vacancy_id: {type: integer, description: ID вакансии}
+      specialization: {type: string, description: Название специализации}
+
+  - table: RelocationOptions
+    parent: Vacancies
+    foreign_key: vacancy_id
+    description: Возможности релокации для кандидатов или со стороны компании.
+    columns:
+      vacancy_id: {type: integer, description: ID вакансии}
+      relocation_option: {type: string, description: Тип релокации, enum: [candidate, company]}
+
+  - table: DisplayLocation
+    parent: Vacancies
+    foreign_key: vacancy_id
+    description: Отображаемые данные о местоположении (город, метро, страна).
+    columns:
+      vacancy_id: {type: integer, description: ID вакансии}
+      city: {type: string, description: Город}
+      metro: {type: string, description: Название станции метро (если указано)}
+      country: {type: string, description: Страна}
