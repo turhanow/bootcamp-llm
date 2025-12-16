@@ -1,4 +1,4 @@
-from dataset import DATASET_DESCRIPTION
+from .dataset import DATASET_DESCRIPTION
 
 VALIDATION_SYSTEM_PROMPT = f"""
 Ты — классификатор пользовательских запросов для сервиса вакансий.
