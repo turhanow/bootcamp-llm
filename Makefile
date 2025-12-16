@@ -1,9 +1,10 @@
 .PHONY: venv install run start
 
-PYTHON=.venv/bin/python
+PYTHON_BIN ?= python3.11
+PYTHON := .venv/bin/python
 
 venv:
-	/opt/homebrew/bin/python3.11 -m venv .venv
+	test -d .venv || $(PYTHON_BIN) -m venv .venv
 
 install: venv
 	$(PYTHON) -m pip install --upgrade pip

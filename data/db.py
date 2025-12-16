@@ -39,7 +39,7 @@ def get_db_con(data_path):
     )
     
     # Подключение к in-memory базе (или укажите путь к файлу: 'my_database.duckdb')
-    con = duckdb.connect()
+    con = duckdb.connect("data/vacancies.duckdb")
     
     # Регистрация основного DataFrame (замените 'main_df' на ваше имя)
     con.register('Vacancies', raw_df)
