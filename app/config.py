@@ -8,4 +8,6 @@ VALIDATION_MODEL = (
     "gpt://b1gnqq9henvclgrbisso/yandexgpt-lite/latest"
 )
 
+SQL_GEN_MODEL = 'gpt://b1gnqq9henvclgrbisso/yandexgpt/rc'
+
 MAX_VALIDATION_TOKENS = 200
