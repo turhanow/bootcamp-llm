@@ -31,7 +31,9 @@ async def on_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     answer = handle_message(user_text)
 
-    await update.message.reply_text(answer)
+    if answer["type"] == "image":
+        with open(answer["image_path"], "rb") as photo:
+            await update.message.reply_photo(photo=photo)
 
 
 def run_bot(token: str):

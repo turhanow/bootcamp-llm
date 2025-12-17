@@ -3,3 +3,8 @@ openai
 pandas
 duckdb
 pyyaml
+matplotlib
+pathlib
+uuid
+seaborn
+dataframe_image
