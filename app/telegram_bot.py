@@ -2,11 +2,28 @@ from telegram import Update
 from telegram.ext import (
     ApplicationBuilder,
     MessageHandler,
+    CommandHandler,
     ContextTypes,
     filters,
 )
-from telegram import Update
+
 from app.handler import handle_message
+
+
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text(
+        """
+        Привет! Я AI-ассистент для анализа данных и Ad-hoc задач.
+
+    Я могу помочь с:
+    • продуктовой аналитикой
+    • автоматизацией аналитических процессов
+    • визуализацией
+    • репортингом
+
+    Чем я могу быть полезен тебе сегодня? 🙂
+        """
+    )
 
 
 async def on_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -19,6 +36,8 @@ async def on_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 def run_bot(token: str):
     app = ApplicationBuilder().token(token).build()
+
+    app.add_handler(CommandHandler("start", start))
 
     app.add_handler(
         MessageHandler(filters.TEXT & ~filters.COMMAND, on_message)

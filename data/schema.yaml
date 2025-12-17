@@ -78,7 +78,7 @@ tables:
     description: Список навыков, указанных в описании вакансии.
     columns:
       vacancy_id: {type: integer, description: ID вакансии}
-      skill: {type: string, description: Название навыка или технологии}
+      skill: {type: string, description: Название навыка или технологии на английском}
 
   - table: Breadcrumbs
     parent: Vacancies
@@ -86,7 +86,7 @@ tables:
     description: Категории иерархии вакансий (например, сфера деятельности).
     columns:
       vacancy_id: {type: integer, description: ID вакансии}
-      breadcrumb: {type: string, description: Категория или направление деятельности}
+      breadcrumb: {type: string, description: Категория или направление деятельности, ключевые слова на английском}
 
   - table: Specializations
     parent: Vacancies
@@ -94,7 +94,7 @@ tables:
     description: Список специализаций, связанных с вакансиями.
     columns:
       vacancy_id: {type: integer, description: ID вакансии}
-      specialization: {type: string, description: Название специализации}
+      specialization: {type: string, description: Название специализации, ключевые слова на английском}
 
   - table: RelocationOptions
     parent: Vacancies
@@ -110,6 +110,6 @@ tables:
     description: Отображаемые данные о местоположении (город, метро, страна).
     columns:
       vacancy_id: {type: integer, description: ID вакансии}
-      city: {type: string, description: Город}
-      metro: {type: string, description: Название станции метро (если указано)}
-      country: {type: string, description: Страна}
+      city: {type: string, description: Город на русском языке}
+      metro: {type: string, description: Название станции метро (если указано) на русском формата "м. <Название станции>" }
+      country: {type: string, description: Страна на русском языке}

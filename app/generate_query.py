@@ -1,10 +1,9 @@
 import openai
 from typing import Optional, Tuple
 import yaml
+from app.config import API_KEY, FOLDER_ID, SQL_GEN_MODEL
 
-import config
-
-from generate_sql_prompts import Prompts
+from app.generate_sql_prompts import Prompts
 from data.db import execute_query
 
 
@@ -201,18 +200,17 @@ def text2df(
     :param db_con: Коннектор к DuckDB
     """
 
-    global config
 
     client = openai.OpenAI(
-        api_key=config.API_KEY,
+        api_key=API_KEY,
         base_url="https://llm.api.cloud.yandex.net/v1",
-        project=config.FOLDER_ID
+        project=FOLDER_ID
     )
 
     generator = TextToSQLGenerator(
         client=client,
-        schema_yaml_path='data/schema.py',
-        model=config.SQL_GEN_MODEL
+        schema_yaml_path='data/schema.yaml',
+        model=SQL_GEN_MODEL
     )
 
     sql_query, error = generator.generate_sql_with_retry(text_request, db_con, verbose=True)
